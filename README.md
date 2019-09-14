@@ -1,5 +1,5 @@
 
-# Api Gateway (Websockets) Push Notifications -> Lambda -> DynamoDB
+# API Gateway (WebSocket) Push Notifications -> Lambda -> DynamoDB
 
 ## How to set this component up
 
