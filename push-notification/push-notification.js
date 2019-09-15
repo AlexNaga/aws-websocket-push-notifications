@@ -12,12 +12,15 @@ const apigwManagementApi = new AWS.ApiGatewayManagementApi({
 });
 
 function pushNotification(connectionId, notificationData) {
-  return apigwManagementApi.postToConnection({ ConnectionId: connectionId, Data: JSON.stringify(notificationData) })
-    .promise()
+  return apigwManagementApi.postToConnection({
+    ConnectionId: connectionId, Data: JSON.stringify(notificationData),
+  }).promise()
     .catch((errorPosting) => {
       if (errorPosting.statusCode === 410) {
         console.log(`Found stale connection, deleting ${connectionId}`);
-        return dynamoDb.delete({ TableName: CONNECTIONS_TABLE_NAME, Key: { connectionId } }).promise();
+        return dynamoDb.delete({
+          TableName: CONNECTIONS_TABLE_NAME, Key: { connectionId },
+        }).promise();
       }
 
       throw errorPosting;
@@ -30,7 +33,9 @@ function processResponse(statusCode, data) {
 
 exports.handler = (event) => {
   const newEvents = parseDynamoDBNewImageEvent(event);
-  return dynamoDb.scan({ TableName: CONNECTIONS_TABLE_NAME, ProjectionExpression: 'connectionId' }).promise()
+  return dynamoDb.scan({
+    TableName: CONNECTIONS_TABLE_NAME, ProjectionExpression: 'connectionId',
+  }).promise()
     .then((result) => {
       const postCalls = result.Items.map(({ connectionId }) => pushNotification(connectionId, newEvents));
       return Promise.all(postCalls);

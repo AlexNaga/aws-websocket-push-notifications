@@ -4,7 +4,9 @@ const dynamoDb = new AWS.DynamoDB.DocumentClient();
 
 module.exports = {
   getAll: function getAll(tableName, projectionExpression) {
-    return dynamoDb.scan({ TableName: tableName, ProjectionExpression: projectionExpression }).promise();
+    return dynamoDb.scan({
+      TableName: tableName, ProjectionExpression: projectionExpression,
+    }).promise();
   },
   deleteItem: function deleteItem(tableName, primaryKey, primaryKeyValue) {
     const key = {};

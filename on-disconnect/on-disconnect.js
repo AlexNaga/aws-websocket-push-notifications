@@ -12,7 +12,7 @@ exports.handler = (event) => {
   };
 
   return dynamoDb.delete(deleteParams).promise()
-    .then((response) => processResponse(true, {}, 200))
+    .then(() => processResponse(true, {}, 200))
     .catch((error) => {
       console.log(error);
       return processResponse(true, error, 400);
