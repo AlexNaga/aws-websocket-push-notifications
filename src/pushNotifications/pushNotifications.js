@@ -1,25 +1,25 @@
 const AWS = require('aws-sdk');
-const parseDynamoDBNewImageEvent = require('./parse-dynamodb-new-image-event');
+const parseDynamoDBNewImageEvent = require('./parseDynamodbNewImageEvent');
 
 // Add ApiGatewayManagementApi to the AWS namespace
 require('aws-sdk/clients/apigatewaymanagementapi');
 
 const dynamoDb = new AWS.DynamoDB.DocumentClient();
-const { CONNECTIONS_TABLE_NAME, STAGE_NAME, DOMAIN_NAME } = process.env;
+const { wsClientsTable, stage, apiEndpoint } = process.env;
 const apigwManagementApi = new AWS.ApiGatewayManagementApi({
   apiVersion: '2018-11-29',
-  endpoint: `${DOMAIN_NAME}/${STAGE_NAME}`,
+  endpoint: `${apiEndpoint}/${stage}`,
 });
 
-function pushNotification(connectionId, notificationData) {
+function pushNotification(clientId, notificationData) {
   return apigwManagementApi.postToConnection({
-    ConnectionId: connectionId, Data: JSON.stringify(notificationData),
+    ConnectionId: clientId, Data: JSON.stringify(notificationData),
   }).promise()
     .catch((errorPosting) => {
       if (errorPosting.statusCode === 410) {
-        console.log(`Found stale connection, deleting ${connectionId}`);
+        console.log(`Found stale connection, deleting ${clientId}`);
         return dynamoDb.delete({
-          TableName: CONNECTIONS_TABLE_NAME, Key: { connectionId },
+          TableName: wsClientsTable, Key: { clientId },
         }).promise();
       }
 
@@ -33,11 +33,13 @@ function processResponse(statusCode, data) {
 
 exports.handler = (event) => {
   const newEvents = parseDynamoDBNewImageEvent(event);
+
+  // TODO: Don't use scan, use query instead
   return dynamoDb.scan({
-    TableName: CONNECTIONS_TABLE_NAME, ProjectionExpression: 'connectionId',
+    TableName: wsClientsTable, ProjectionExpression: 'clientId',
   }).promise()
     .then((result) => {
-      const postCalls = result.Items.map(({ connectionId }) => pushNotification(connectionId, newEvents));
+      const postCalls = result.Items.map(({ clientId }) => pushNotification(clientId, newEvents));
       return Promise.all(postCalls);
     }).then(() => processResponse(200, 'Data sent'))
     .catch((err) => {

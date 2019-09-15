@@ -1,4 +1,4 @@
-export default function parseDynamoDBNewImageEvent(event) {
+module.exports = function parseDynamoDBNewImageEvent(event) {
   const extractDynamoDb = (record) => record.dynamodb && record.dynamodb.NewImage;
   const extractDynamoDBItem = (newImage) => {
     const cleanObject = {};
@@ -11,4 +11,4 @@ export default function parseDynamoDBNewImageEvent(event) {
     return [];
   }
   return event.Records.map(extractDynamoDb).filter((x) => x).map(extractDynamoDBItem);
-}
+};

@@ -1,24 +1,21 @@
 {
-  "name": "ws-push-notifications",
+  "name": "aws-websocket-push-notifications",
   "version": "1.0.0",
-  "description": "",
+  "description": "Push notifications through WebSocket",
   "main": "app.js",
-  "directories": {
-    "test": "tests"
-  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "package": "aws cloudformation package --template-file template.yml --output-template-file output.yml --s3-bucket ws-push-notifications",
-    "deploy": "aws cloudformation deploy --template-file output.yml --stack-name ws-push-notifications --capabilities CAPABILITY_IAM --parameter-overrides StageName=$npm_package_config_stage_name DomainName=$npm_package_config_domain_name",
-    "qd": "npm run package && npm run deploy"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlexNaga/aws-websocket-push-notifications.git"
+  },
   "author": "Alex",
-  "license": "MIT",
-  "config": {
-    "stage_name": "test",
-    "domain_name": "1dnag6b7pj.execute-api.eu-west-1.amazonaws.com"
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AlexNaga/aws-websocket-push-notifications/issues"
   },
+  "homepage": "https://github.com/AlexNaga/aws-websocket-push-notifications#readme",
   "devDependencies": {
     "eslint": "^6.4.0",
     "eslint-config-airbnb-base": "^14.0.0",

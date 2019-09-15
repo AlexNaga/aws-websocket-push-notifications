@@ -1,4 +1,9 @@
-./node_modules
-.DS_Store
+# package directories
 node_modules
-output.yml
+jspm_packages
+
+# Serverless directories
+.serverless
+
+#M isc
+.DS_Store
