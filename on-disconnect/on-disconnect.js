@@ -1,5 +1,5 @@
 const AWS = require('aws-sdk');
-const processResponse = require('./process-response');
+const processResponse = require('./process-response').default;
 
 const dynamoDb = new AWS.DynamoDB.DocumentClient();
 

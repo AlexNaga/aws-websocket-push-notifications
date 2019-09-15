@@ -1,4 +1,4 @@
-module.exports = (isCors, body, statusCode) => {
+export default (isCors, body, statusCode) => {
   const status = statusCode || (body ? 200 : 204);
   const headers = { 'Content-Type': 'application/json' };
   if (isCors) {
