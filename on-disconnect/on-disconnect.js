@@ -1,18 +1,19 @@
-const AWS = require('aws-sdk'),
-  dynamoDb = new AWS.DynamoDB.DocumentClient(),
-  processResponse = require('./process-response');
+const AWS = require('aws-sdk');
+const processResponse = require('./process-response');
+
+const dynamoDb = new AWS.DynamoDB.DocumentClient();
 
 exports.handler = (event) => {
-  var deleteParams = {
+  const deleteParams = {
     TableName: process.env.TABLE_NAME,
     Key: {
-      connectionId: event.requestContext.connectionId
-    }
+      connectionId: event.requestContext.connectionId,
+    },
   };
 
   return dynamoDb.delete(deleteParams).promise()
-    .then(response => processResponse(true, {}, 200))
-    .catch(error => {
+    .then((response) => processResponse(true, {}, 200))
+    .catch((error) => {
       console.log(error);
       return processResponse(true, error, 400);
     });

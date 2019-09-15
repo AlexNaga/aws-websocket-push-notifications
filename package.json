@@ -18,5 +18,13 @@
   "config": {
     "stage_name": "test",
     "domain_name": "1dnag6b7pj.execute-api.eu-west-1.amazonaws.com"
+  },
+  "devDependencies": {
+    "eslint": "^6.4.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.18.2"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.528.0"
   }
 }
