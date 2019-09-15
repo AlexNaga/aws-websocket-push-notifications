@@ -1,7 +1,7 @@
 AWSTemplateFormatVersion: 2010-09-09
 Transform: AWS::Serverless-2016-10-31
 Description: >
-  api-websockets-push-notifications-dynamodb
+  ws-push-notifications
 Parameters:
   StageName:
     Type: String
@@ -16,7 +16,7 @@ Parameters:
     ConstraintDescription: 'Required'
   ConnectionsTableName:
     Type: String
-    Default: notifications-clients
+    Default: ws-push-notifications-clients
     Description: (Required) The name of the new DynamoDB to store connection identifiers for each connected clients. Minimum 3 characters
     MinLength: 3
     MaxLength: 50
@@ -24,7 +24,7 @@ Parameters:
     ConstraintDescription: 'Required. Can be characters and underscore only. No numbers or special characters allowed.'
   NotificationEventsTableName:
     Type: String
-    Default: notifications-events
+    Default: ws-push-notifications-events
     Description: (Required) The name of the new DynamoDB to store notification events, on every new entry the connections will be notified. Minimum 3 characters
     MinLength: 3
     MaxLength: 50
@@ -144,3 +144,4 @@ Outputs:
   PushNotificationsArn:
     Description: Push Notifications Lambda ARN
     Value: !GetAtt PushNotifications.Arn
+    
