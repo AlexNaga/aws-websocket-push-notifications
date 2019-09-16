@@ -1,0 +1,31 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Run pushNotifications offline",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceRoot}/node_modules/serverless/bin/serverless",
+      "args": [
+        "invoke",
+        "local",
+        "-f",
+        "pushNotifications",
+        //"--data",
+        //"test",
+        "-p",
+        "test/events/pushNotificationsEvent.json",
+        "-s",
+        "test"
+      ],
+      "cwd": "${workspaceRoot}",
+      "protocol": "inspector",
+      "env": {
+        "SLS_DEBUG": "*",
+        "AWS_PROFILE": "default",
+        "AWS_XRAY_CONTEXT_MISSING": "LOG_ERROR",
+        "AWS_SDK_LOAD_CONFIG": "true"
+      }
+    }
+  ]
+}

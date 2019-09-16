@@ -1,0 +1,36 @@
+{
+  "requestContext": {
+    "routeKey": "$default",
+    "messageId": "AGvVPeYcDoECG_Q=",
+    "eventType": "MESSAGE",
+    "extendedRequestId": "AGvVPHmSjoEFtcw=",
+    "requestTime": "16/Sep/2019: 10: 09: 24 +0000",
+    "messageDirection": "IN",
+    "stage": "test",
+    "connectedAt": 1568628542512,
+    "requestTimeEpoch": 1568628564677,
+    "identity": {
+      "cognitoIdentityPoolId": null,
+      "cognitoIdentityId": null,
+      "principalOrgId": null,
+      "cognitoAuthenticationType": null,
+      "userArn": null,
+      "userAgent": null,
+      "accountId": null,
+      "caller": null,
+      "sourceIp": "81.94.163.189",
+      "accessKey": null,
+      "cognitoAuthenticationProvider": null,
+      "user": null
+    },
+    "requestId": "AGvVPHmSjoEFtcw=",
+    "domainName": "lbqq8qxq96.execute-api.eu-west-1.amazonaws.com",
+    "connectionId": "AGvRyeXpjoECG_Q=",
+    "apiId": "lbqq8qxq96"
+  },
+  "body": {
+    "action": "sendMessage",
+    "data": "hello world"
+  },
+  "isBase64Encoded": false
+}

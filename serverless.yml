@@ -7,7 +7,7 @@ provider:
   region: eu-west-1
   environment: # you can define service wide environment variables here
     stage: test
-    apiEndpoint: wss://lbqq8qxq96.execute-api.eu-west-1.amazonaws.com
+    apiEndpoint: lbqq8qxq96.execute-api.eu-west-1.amazonaws.com
     wsClientsTable: ws-push-notifications-clients-test
 
   iamRoleStatements: # permissions for all of your functions can be set here
