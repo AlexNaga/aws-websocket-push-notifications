@@ -4,7 +4,9 @@
   "description": "Push notifications through WebSocket",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "npm run offline",
+    "offline": "sls offline start --progress --colors --watch",
+    "deploy": "sls deploy"
   },
   "repository": {
     "type": "git",

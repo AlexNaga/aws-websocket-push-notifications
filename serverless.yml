@@ -1,5 +1,8 @@
 service: ws-push-notifications
 
+plugins:
+  - serverless-offline
+
 provider:
   name: aws
   runtime: nodejs10.x
@@ -7,8 +10,9 @@ provider:
   region: eu-west-1
   environment: # you can define service wide environment variables here
     stage: test
-    apiEndpoint: lbqq8qxq96.execute-api.eu-west-1.amazonaws.com
-    wsClientsTable: ws-push-notifications-clients-test
+    apiEndpoint: http://localhost:3001
+    # apiEndpoint: lbqq8qxq96.execute-api.eu-west-1.amazonaws.com
+    wsClientsTable: ws-push-notifications-clients-
 
   iamRoleStatements: # permissions for all of your functions can be set here
     - Effect: Allow

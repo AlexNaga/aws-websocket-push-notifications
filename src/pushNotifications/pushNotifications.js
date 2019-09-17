@@ -4,7 +4,7 @@ const AWS = require('aws-sdk');
 require('aws-sdk/clients/apigatewaymanagementapi');
 
 const dynamoDb = new AWS.DynamoDB.DocumentClient();
-const { wsClientsTable, stage, apiEndpoint } = process.env;
+const { apiEndpoint, stage, wsClientsTable } = process.env;
 const apiGatewayManagementApi = new AWS.ApiGatewayManagementApi({
   apiVersion: '2018-11-29',
   endpoint: `${apiEndpoint}/${stage}`,
@@ -20,7 +20,8 @@ async function pushNotification(clientId, message) {
     if (errorPosting.statusCode === 410) {
       console.log(`Found stale connection, deleting ${clientId}`);
       return dynamoDb.delete({
-        TableName: wsClientsTable, Key: { clientId },
+        TableName: `${wsClientsTable}-${stage}`,
+        Key: { clientId },
       }).promise();
     }
     throw errorPosting;
@@ -44,7 +45,8 @@ exports.handler = async (event) => {
     // TODO: Don't use scan, use query instead since we want to send to a specific user
     try {
       const result = await dynamoDb.scan({
-        TableName: wsClientsTable, ProjectionExpression: 'clientId',
+        TableName: `${wsClientsTable}-${stage}`,
+        ProjectionExpression: 'clientId',
       }).promise();
       const postCalls = result.Items.map(({ clientId }) => pushNotification(clientId, message));
       await Promise.all(postCalls);

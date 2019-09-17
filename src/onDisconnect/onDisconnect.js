@@ -2,10 +2,11 @@ const AWS = require('aws-sdk');
 const processResponse = require('./processResponse');
 
 const dynamoDb = new AWS.DynamoDB.DocumentClient();
+const { stage, wsClientsTable } = process.env;
 
 exports.handler = (event) => {
   const deleteParams = {
-    TableName: process.env.wsClientsTable,
+    TableName: `${wsClientsTable}-${stage}`,
     Key: {
       clientId: event.requestContext.connectionId,
     },
