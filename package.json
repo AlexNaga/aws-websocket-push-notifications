@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "start": "npm run offline",
-    "offline": "sls offline start --progress --colors --watch",
+    "offline": "npx sls offline start --printOutput --progress --colors --watch",
     "deploy": "sls deploy"
   },
   "repository": {
